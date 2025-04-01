@@ -53,7 +53,8 @@ int main(){
 	
 	int year = 0, flag = 0;
 	
-	for(int i = 0; i <= 900; i++){
+	while(1){
+	
 		int cnt = 0;
 		
 		for(int j = 0; j < N; j++){
@@ -78,7 +79,10 @@ int main(){
 			cout << year;
 			break; 
 		}
-		
+		if(cnt == 0){
+			cout << 0;
+			break;
+		}
 		year++;
 		
 		for(int j = 1; j < N - 1; j++){
@@ -105,8 +109,6 @@ int main(){
 		}
 		
 	}
-	
-	if(flag == 0) cout << 0;
 	
 	return 0;
 	
