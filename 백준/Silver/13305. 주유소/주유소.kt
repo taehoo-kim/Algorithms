@@ -6,9 +6,9 @@ fun main() {
     // 최소 비용 찾기
 
     val N = readln().toInt()
-    val dist = readln().split(" ").map {it.toInt()}
-    val cost = readln().split(" ").map {it.toInt()}
-    var minCost: Long = 0
+    val dist = readln().split(" ").map {it.toLong()}
+    val cost = readln().split(" ").map {it.toLong()}
+    var minCost = 0L
     var minOil = cost[0] // 현재 오일 최솟값을 저장해놓는다.
     var oil = 0
 
