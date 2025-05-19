@@ -8,7 +8,7 @@ vector<int> solution(int brown, int yellow) {
     
     int flag = 0;
     
-    for(int i = 1; i <= 5000; i++){
+    for(int i = 1; i <= brown; i++){
         for(int j = 1; j <= i; j++){
             if(2 * i + 2 * j - 4 == brown){
                 if(i * j - brown == yellow){
