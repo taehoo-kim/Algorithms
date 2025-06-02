@@ -28,7 +28,7 @@ void solution() {
 		int teleport = curr * 2;
 		if (teleport < 100001 && dist[teleport] == -1) {
 			dist[teleport] = dist[curr];
-			dq.push_front(teleport);
+			dq.push_back(teleport);
 		}
 
 		int walk[] = { curr - 1, curr + 1 };
