@@ -3,55 +3,60 @@ import java.util.*;
 
 public class Main {
     static int[] graph;
-    static boolean[] visited;
+    static boolean[] visited; // 이미 결과에 포함된 노드 표시
     static List<Integer> res = new ArrayList<>();
-    public static void main(String[] args) throws IOException {
 
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int N = Integer.parseInt(br.readLine());
         graph = new int[N + 1];
         visited = new boolean[N + 1];
 
-        for(int i = 1; i <= N; i++){
-            int dest = Integer.parseInt(br.readLine());
-            graph[i] = dest;
-            if(i == dest){
-                res.add(dest);
-                visited[i] = true;
-            }
+        // 그래프 초기화
+        for (int i = 1; i <= N; i++) {
+            graph[i] = Integer.parseInt(br.readLine());
         }
 
-        for(int i = 1; i <= N; i++){
-            if(!visited[i]){
+        // 모든 노드에 대해 BFS로 사이클 탐색
+        for (int i = 1; i <= N; i++) {
+            if (!visited[i]) {
                 boolean[] tempVisited = new boolean[N + 1];
                 List<Integer> path = new ArrayList<>();
-                dfs(i, i, tempVisited, path);
-            }
-        }
+                Queue<Integer> queue = new LinkedList<>();
+                queue.add(i);
+                tempVisited[i] = true;
+                path.add(i);
 
-        Collections.sort(res);
-        System.out.println(res.size());
-        for(int num: res) {
-            System.out.println(num);
-        }
+                boolean foundCycle = false;
+                while (!queue.isEmpty()) {
+                    int curr = queue.poll();
+                    int next = graph[curr];
+                    if (!tempVisited[next]) {
+                        tempVisited[next] = true;
+                        path.add(next);
+                        queue.add(next);
+                    } else if (next == i) { // 시작점으로 돌아옴 (사이클)
+                        foundCycle = true;
+                        break;
+                    }
+                }
 
-    }
-
-    private static void dfs(int start, int curr, boolean[] tempVisited, List<Integer> path){
-        if (tempVisited[curr]){
-            if(curr == start){
-                for(int node : path){
-                    if(!visited[node]){
-                        visited[node] = true;
-                        res.add(node);
+                if (foundCycle) {
+                    for (int num : path) {
+                        if (!visited[num]) {
+                            visited[num] = true;
+                            res.add(num);
+                        }
                     }
                 }
             }
-            return;
         }
 
-        tempVisited[curr] = true;
-        path.add(curr);
-        dfs(start, graph[curr], tempVisited, path);
+        // 결과 출력
+        Collections.sort(res);
+        System.out.println(res.size());
+        for (int num : res) {
+            System.out.println(num);
+        }
     }
 }
