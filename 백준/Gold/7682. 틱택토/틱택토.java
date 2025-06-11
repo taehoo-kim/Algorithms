@@ -20,23 +20,37 @@ public class Main {
                 else if (c == 'O') oCount++;
             }
 
-            int xWin = win(board, 'X');
-            int oWin = win(board, 'O');
             boolean isValid = false;
 
-            // 1. X가 이긴 경우
-            if (xCount == oCount + 1 && xWin > 0 && oWin == 0) {
-                // X가 마지막에 두어서 승리한 뒤 바로 종료
-                isValid = true;
+            // X가 이긴 경우
+            if (xCount == oCount + 1) {
+                int xWin = countWinLines(board, 'X');
+                int oWin = countWinLines(board, 'O');
+
+                // O가 승리하지 않았고 X가 최소 1줄 승리
+                if (oWin == 0 && xWin > 0) {
+                    isValid = true;
+                }
             }
-            // 2. O가 이긴 경우
-            else if (xCount == oCount && oWin > 0 && xWin == 0) {
-                // O가 마지막에 두어서 승리한 뒤 바로 종료
-                isValid = true;
+            // O가 이긴 경우
+            if (xCount == oCount) {
+                int xWin = countWinLines(board, 'X');
+                int oWin = countWinLines(board, 'O');
+
+                // X가 승리하지 않았고 O가 최소 1줄 승리
+                if (xWin == 0 && oWin > 0) {
+                    isValid = true;
+                }
             }
-            // 3. 무승부 (판이 가득 차고 승리자 없음)
-            else if (xCount == 5 && oCount == 4 && xWin == 0 && oWin == 0) {
-                isValid = true;
+            // 무승부 (판이 가득 찬 경우)
+            if (xCount == 5 && oCount == 4) {
+                int xWin = countWinLines(board, 'X');
+                int oWin = countWinLines(board, 'O');
+
+                // 둘 다 승리하지 않음
+                if (xWin == 0 && oWin == 0) {
+                    isValid = true;
+                }
             }
 
             sb.append(isValid ? "valid\n" : "invalid\n");
@@ -45,8 +59,8 @@ public class Main {
         System.out.print(sb);
     }
 
-    // 승리 라인 개수 반환
-    private static int win(char[][] board, char player) {
+    // 승리 라인 수 계산 (가로, 세로, 대각선)
+    private static int countWinLines(char[][] board, char player) {
         int cnt = 0;
         // 가로
         for (int i = 0; i < 3; i++) {
