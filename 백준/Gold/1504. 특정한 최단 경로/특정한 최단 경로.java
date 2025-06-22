@@ -94,7 +94,7 @@ public class Main {
                 int adjNodeCost = adjNode.cost;
 
                 if(visited[adjNodeIdx]) continue;
-                if(distance[start][curr.idx] != Integer.MAX_VALUE && distance[start][adjNodeIdx] > distance[start][curr.idx] + adjNodeCost) {
+                if(distance[start][adjNodeIdx] > distance[start][curr.idx] + adjNodeCost) {
                     distance[start][adjNodeIdx] = distance[start][curr.idx] + adjNodeCost;
                     pq.add(new Node(adjNodeIdx, distance[start][adjNodeIdx]));
                 }
