@@ -25,10 +25,14 @@ void solution() {
 
 	for (int i = 0; i < 2; i++) {
 		for (int j = 1; j < 7; j++) {
-			if (arr[i][j] > K) {
+			if (arr[i][j] == 0) continue;
+
+			if (arr[i][j] % K == 0) {
+				rooms += arr[i][j] / K;
+			}
+			else if (arr[i][j] > K) {
 				rooms += arr[i][j] / K + 1;
 			}
-			else if (arr[i][j] == 0) continue;
 			else {
 				rooms++;
 			}
